@@ -1,0 +1,59 @@
+<section class="login-container">
+  
+  <div class="login-form-container">
+    <div class="login-card">
+      <div class="login-title">
+        <h2>Entrar</h2>
+        <p>Faça login para acessar o sistema</p>
+      </div>
+      
+      <form class="login-form" (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label for="username">Usuário</label>
+          <div class="input-container">
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              [(ngModel)]="credentials.username"
+              placeholder="Digite seu usuário"
+              required
+            >
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <div class="input-container">
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password" 
+              name="password" 
+              [(ngModel)]="credentials.password"
+              placeholder="Digite sua senha"
+              required
+            >
+          </div>
+        </div>
+        
+        <div class="form-options">
+          <label class="checkbox-container">
+            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+            <span class="checkmark"></span>
+            Lembrar de mim
+          </label>
+          <a href="#" class="forgot-password">Esqueceu a senha?</a>
+        </div>
+        
+        <button type="submit" class="login-button" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Entrar</span>
+          <span *ngIf="isLoading" class="loading-spinner">⏳</span>
+        </button>
+      </form>
+      
+      <div class="login-footer">
+        <p>Não tem uma conta? <a href="#" class="signup-link">Cadastre-se</a></p>
+      </div>
+    </div>
+  </div>
+</section>
