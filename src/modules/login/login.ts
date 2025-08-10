@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginCredentials } from '../../core/signatures/login-request';
+import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +12,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.scss'
 })
 export class Login {
-  credentials = {
-    username: '',
+
+  credentials: LoginCredentials = {
+    email: '',
     password: ''
   };
+
+  constructor(private authService: AuthService, private router: Router) {}
   
   showPassword = false;
   rememberMe = false;
@@ -23,15 +29,18 @@ export class Login {
   }
 
   onLogin() {
-    if (this.credentials.username && this.credentials.password) {
+    if (this.credentials.email && this.credentials.password) {
       this.isLoading = true;
       
-      // Simular processo de login
-      setTimeout(() => {
-        console.log('Login realizado:', this.credentials);
-        this.isLoading = false;
-        // Aqui você pode adicionar a lógica real de autenticação
-      }, 2000);
+      this.authService.login(this.credentials).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.router.navigate(['/dashboard']);
+        },
+        (error) => {
+          this.isLoading = false;
+        }
+      );
     }
   }
 }
