@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { LoginCredentials } from '../signatures/login-request';
+import { SignUpCredentials } from '../signatures/signup-request';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,10 @@ export class AuthService {
 
   login(credentials: LoginCredentials): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials, { withCredentials: true });
+  }
+
+  signUp(credentials: SignUpCredentials): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, credentials, { withCredentials: true });
   }
 
   isAuthenticated(): Observable<boolean> {
